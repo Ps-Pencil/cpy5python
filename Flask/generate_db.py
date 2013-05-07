@@ -1,10 +1,9 @@
 import sqlite3
-
-
-d=[('a',1),('b',2),('c',3),('d',4),('e',5),('f',6),('g',7),('h',8),('i',9),('j',10)]
-
-with sqlite3.connect('sales.db') as connection:
-	c=connection.cursor()
-	c.execute("DROP TABLE if exists reps")
-	c.execute('''CREATE TABLE reps (rep_name TEXT,amount INT)''')
-	c.executemany("INSERT INTO reps VALUES(?,?)", d)
+con = sqlite3.connect("flasktask.db")
+with con:
+    cur = con.cursor()
+    cur.execute("DROP TABLE IF EXISTS ftasks")
+    cur.execute("CREATE TABLE ftasks(task_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, due_date TEXT NOT NULL, priority INTEGER NOT NULL, status INTEGER NOT NULL)")
+    cur.execute('INSERT INTO ftasks (name, due_date, priority, status) VALUES("Finish this tutorial", "02/03/2013", 10, 1)')
+    cur.execute('INSERT INTO ftasks (name, due_date, priority, status) VALUES("Finish my book", "02/03/2013", 10, 1)')
+con.close()

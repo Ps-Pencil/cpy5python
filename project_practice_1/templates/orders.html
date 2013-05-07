@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block content %}
+<h3>Your Orders</h3>
+	{% if orders %}
+	<ol>
+	{% for order in orders %}
+	<li>
+		<hr>
+            <li>{{order[16]}}</li>
+			<li><em class="stress">Total: ${{order[2]}}</em></li>
+			<li>
+				<ol>
+					{% for i in range(3,16) %}
+					{% if order[i]==0 %}
+					{% else %}
+					<li> {{names[i-3]}}: {{order[i]}}</li>
+					{% endif %}
+					{% endfor %}
+				</ol>
+			</li>
+
+	</li>
+		{% endfor %}
+	</ol>
+		{% endif %}
+{% endblock %}
+

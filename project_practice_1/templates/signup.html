@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block content %}
+ <h1>Signup</h1>
+  {% if error %}
+    <p class=error><em>Error:</em> {{ error }}</p>
+  {% endif %}
+  <form action="" method='post'>
+    <ul>
+      <li><label for="username">Username:</label></li>
+      <li><input type='text' name='username' value="{{
+          request.form.username }}" required></li>
+      <li><label for="password">Password:</label></li>
+      <li><input type='password' name='password' required></li>
+      <li><label for="verify">Retype your password:</label></li>
+      <li><input type='password' name='verify' required></li>
+   		<li><label for="email">Email:</label></li>
+      <li><input type='text' name='email' value="{{
+          request.form.email}}" required></li>
+    <li><input type="submit" value="Sign Up" style="width:30%"></li>
+     </ul>
+  </form>
+{% for message in get_flashed_messages() %}
+    <div class=flash>
+        {{ message }}
+    </div>
+{% endfor %}
+{% endblock %}

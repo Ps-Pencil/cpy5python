@@ -1,0 +1,23 @@
+{% extends 'template.html' %}
+{% block content %}
+ <h1>Login</h1>
+  {% if error %}
+    <p class=error><em>Error:</em> {{ error }}</p>
+  {% endif %}
+  <form action="" method='post'>
+    <ul>
+      <li><label for="username">Username:</label></li>
+      <li><input type='text' name='username' value="{{
+          request.form.username }}" required></li>
+      <li><label for="password">Password:</label></li>
+      <li><input type='password' name='password' required></li>
+   
+    <li><input type="submit" value="Login" style="width:30%" /><a href="/signup" style="width:30%;margin-left:3em;">Sign Up</a</li>
+     </ul>
+  </form>
+{% for message in get_flashed_messages() %}
+    <div class=flash>
+        {{ message }}
+    </div>
+{% endfor %}
+{% endblock %}

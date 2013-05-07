@@ -1,0 +1,88 @@
+{% extends 'template.html' %}
+{% block content %}
+<form action="" method="post">
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Quantity Remained</th>
+			<th>Price</th>
+			<th>Order</th>
+			<th>Total</th>
+		</tr>
+	{% if items %}
+	{% for i in range(0,num_items) %}
+	<tr>
+		<td>{{items[i][0]}}</td>
+		<td id="max{{i}}">{{items[i][2]}}</td>
+		<td id="price{{i}}">{{items[i][1]}}</td>
+		<td><input type="text" name='{{i}}' id="quantity{{i}}" onkeyup="
+			value=value.replace(/[^\d]/g,'');
+
+			var val=value;
+			var intValue=parseInt(val);
+			if(intValue>parseInt(document.getElementById('max{{i}}').innerHTML)) value=document.getElementById('max{{i}}').innerHTML;
+			if (val.length != 0)
+		{
+        	var x=parseFloat(document.getElementById('total{{i}}').innerHTML);
+        	var price=parseFloat(document.getElementById('price{{i}}').innerHTML);
+        	document.getElementById('total{{i}}').innerHTML=(price*intValue).toFixed(1);
+        	//document.getElementById('total').innerHTML=y+price*intValue;
+        
+	    }
+	    var sum=0.0;
+	    for(var i=0;i<{{num_items}};i++)
+	    {
+	    	sum+=parseFloat(document.getElementById('total'+i).innerHTML);
+		}
+		document.getElementById('total').innerHTML=sum.toFixed(1);document.getElementById('total_cost').value=sum.toFixed(1);"
+
+	    onblur="
+			document.getElementById('quantity{{i}}').value=document.getElementById('quantity{{i}}').value.replace(/[^\d]/g,'');
+
+			var val=document.getElementById('quantity{{i}}').value;
+			var intValue=parseInt(val);
+			if(intValue>parseInt(document.getElementById('max{{i}}').innerHTML)) {
+			document.getElementById('quantity{{i}}').value=document.getElementById('max{{i}}').innerHTML;
+			intValue=parseInt(document.getElementById('max{{i}}').innerHTML);
+		}
+			if (val.length != 0)
+		{
+        	var x=parseFloat(document.getElementById('total{{i}}').innerHTML);
+        	var price=parseFloat(document.getElementById('price{{i}}').innerHTML);
+        	document.getElementById('total{{i}}').innerHTML=(price*intValue).toFixed(1);
+        	//document.getElementById('total').innerHTML=y+price*intValue;
+        
+	    }
+	    var sum=0.0;
+	    for(var i=0;i<{{num_items}};i++)
+	    {
+	    	sum+=parseFloat(document.getElementById('total'+i).innerHTML);
+		}
+	    if(value=='') document.getElementById('total{{i}}').innerHTML='0.00';
+	    
+		document.getElementById('total').innerHTML=sum.toFixed(1);
+		document.getElementById('total_cost').value=sum.toFixed(1);
+	    "></td>
+		<td id="total{{i}}"st>0.00</td>
+	</tr>
+	{% endfor %}
+	
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td id="total" style="font-weight:bold;">0.00</td>
+		<input type="hidden" id='total_cost' name="total" value="{{total}}">
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td><input type="submit" value="Confirm Purchase"></td>
+		</tr>
+	{% endif %}
+</table>
+</form>
+{% endblock %}
